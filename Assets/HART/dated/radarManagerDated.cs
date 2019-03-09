@@ -15,12 +15,12 @@ public class radarManager : MonoBehaviour
 
     public GameObject player;
 
-    private gpsData currGPS;
+    private gpsDataDated currGPS;
     private int idx = 0;
     private dataController data;
     private float size = 0;
     private Vector3 orgScale;
-    
+    private bool debug = false;
     
     private void OnEnable()
     {
@@ -39,12 +39,24 @@ public class radarManager : MonoBehaviour
         {
             data = this.GetComponent<dataController>();
             orgScale = player.transform.localScale;
+            try
+            {
+                debug = GameObject.FindGameObjectWithTag("gameManager").GetComponent<gameState>().debugging;
+            }
+            catch (Exception)
+            {
+
+                debug = false;
+            }
             mapManager.OnInitialized += delegate { updateMap();};
             mapManager.OnUpdated += delegate { updateMap(); };
         }
 
     }
     
+    /// <summary>
+    /// Updates game model scale to be inline with map scale
+    /// </summary>
     public void updateMap()
     {
         Debug.Log("Map was updated");
@@ -58,10 +70,9 @@ public class radarManager : MonoBehaviour
     {
         if (idx != -1)
         {
-            currGPS = data.getGPS(idx++);
+            currGPS = data.getGPS();
             if (currGPS != null)
             {
-                
                 Vector3 pos = mapManager.GeoToWorldPosition(new Mapbox.Utils.Vector2d(currGPS.Latitude, currGPS.Longitude));
                 pos.y += size + (currGPS.Elevation * mapManager.WorldRelativeScale);
                 player.transform.position = pos;

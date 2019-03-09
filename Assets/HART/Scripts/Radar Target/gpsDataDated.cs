@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class gpsData
+public class gpsDataDated
 {
     public float Latitude = 0;
     public float Longitude = 0;

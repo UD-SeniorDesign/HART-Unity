@@ -7,9 +7,9 @@ public class dataController : MonoBehaviour
 {
     [Tooltip("File name of the gps json data. Must be in the StreamingAssets Folder")]
     private string gameDataFileName = "";
-    private List<gpsData> GPSData;
+    private List<gpsDataDated> GPSData;
     private bool read = false;
-
+    private int idx = 0;
     public string GameDataFileName
     {
         get
@@ -26,7 +26,7 @@ public class dataController : MonoBehaviour
     // Use this for initialization
     void OnEnable()
     {
-        GPSData = new List<gpsData>();
+        GPSData = new List<gpsDataDated>();
         ReadFile();
     }
     private void ReadFile()
@@ -46,7 +46,7 @@ public class dataController : MonoBehaviour
             {
                 string tmp = json.Trim(toTrim);
                 //Debug.Log(tmp);
-                GPSData.Add(JsonUtility.FromJson<gpsData>(tmp));
+                GPSData.Add(JsonUtility.FromJson<gpsDataDated>(tmp));
                 //Debug.Log(GPSData[GPSData.Count - 1].Elevation);
             }
             read = true;
@@ -58,8 +58,15 @@ public class dataController : MonoBehaviour
         }
         
     }
-    public gpsData getGPS(int idx)
+    /// <summary>
+    /// Returns the current gps location and then updates the index. Will return null if a file has not been loaded
+    /// </summary>
+    /// <returns>gpsData or null</returns>
+    public gpsDataDated getGPS()
     {
-        return read?GPSData[idx % GPSData.Count]:null;
+        // Prevent overflow
+        if (idx > GPSData.Count)
+            idx = 0;
+        return read?GPSData[idx++ % GPSData.Count]:null;
     }
 }

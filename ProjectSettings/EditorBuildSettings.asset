@@ -6,12 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/HART/Scenes/testScene.unity
+    path: Assets/HART/Scenes/Fall18/testScene.unity
     guid: 364c89e08fecd824ba7fa2ac16c9ed08
   - enabled: 0
-    path: Assets/HART/Scenes/mapPlacement.unity
+    path: Assets/HART/Scenes/Fall18/mapPlacement.unity
     guid: 25ad7a3e68ea0084abe0120752c747ed
-  - enabled: 1
-    path: Assets/HART/Scenes/mapPlacement with UI.unity
+  - enabled: 0
+    path: Assets/HART/Scenes/Fall18/mapPlacement with UI.unity
     guid: ef39e2088711843449552e2536ff2007
+  - enabled: 1
+    path: Assets/HART/Scenes/WebMap.unity
+    guid: 0678f5482e7d4194e8433bef920acf14
   m_configObjects: {}
